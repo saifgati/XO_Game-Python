@@ -23,6 +23,7 @@ WiFiClient client;
 MySQL_Connection conn((Client *)&client);
 
 char INSERT_SQL[] = "INSERT INTO officeto_plants.TBL_READINGS(ID_PLANT, AIR_HUMIDITY, AIR_TEMPERATURE, SOIL_MOISTURE_1) VALUES (1, NULL, NULL, %d)";
+//char INSERT_SQL[] = "INSERT INTO officeto_plants.TBL_READINGS(ID_PLANT, AIR_HUMIDITY, AIR_TEMPERATURE, SOIL_MOISTURE_1, SOIL_MOISTURE_2) VALUES (1, NULL, NULL, %d, NULL)";
 char query[128];
 
 IPAddress server_addr(x, x ,x, x);          // MySQL server IP
