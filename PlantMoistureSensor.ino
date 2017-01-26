@@ -1,34 +1,40 @@
+//#include <DHT.h>
 #include <MySQL_Connection.h>
 #include <MySQL_Cursor.h>
 #include <ESP8266WiFi.h>
 #include <WiFiClient.h>
 
-const int sensorPin1= 0;
+#define sensorPin1 0
+
+//#define sensorPin2 D2
+//#define typeDHT DHT11
+//DHT dht(sensorPin1, typeDHT);
 
 char ssid[] = "xxx";                 // Network Name
 char pass[] = "xxx";                 // Network Password
 byte mac[6];
 
 WiFiServer server(80);
-IPAddress ip(x, x, x x);
-IPAddress gateway(x, x, x, x);
-IPAddress subnet(x, x, x, x);
+IPAddress ip(192, 168, x, x);
+IPAddress gateway(192, 168, x, x);
+IPAddress subnet(255, 255, 255, 0);
 
 WiFiClient client;
 MySQL_Connection conn((Client *)&client);
 
-char INSERT_SQL[] = "INSERT INTO abc(ID_PLANT, AIR_HUMIDITY, AIR_TEMPERATURE, SOIL_HUMIDITY) VALUES (1, NULL, NULL, %d)";
+char INSERT_SQL[] = "INSERT INTO officeto_plants.TBL_READINGS(ID_PLANT, AIR_HUMIDITY, AIR_TEMPERATURE, SOIL_MOISTURE_1) VALUES (1, NULL, NULL, %d)";
 char query[128];
 
-IPAddress server_addr(x, x ,x, x);    // MySQL server IP
-char user[] = "xxxxx";           // MySQL user
-char password[] = "xxxxx";       // MySQL password
+IPAddress server_addr(x, x ,x, x);          // MySQL server IP
+char user[] = "xxx";           // MySQL user
+char password[] = "xxx";       // MySQL password
 
 void setup() {
 
   Serial.begin(9600);
 
   pinMode(sensorPin1, INPUT);
+  //pinMode(sensorPin2, INPUT);
 
   Serial.println("Initialising connection");
   Serial.print(F("Setting static ip to : "));
@@ -81,9 +87,10 @@ void setup() {
 
 void loop() {
 
-  int soil_hum;
+  int soil_hum = 1024 - analogRead(sensorPin1);
+  //float t = dht.readTemperature();
 
-  soil_hum = 1024 - analogRead(sensorPin1);
+  //Serial.println(t);
 
   delay(10000); //10 sec
 
