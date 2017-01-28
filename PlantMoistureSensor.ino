@@ -23,7 +23,7 @@ WiFiClient client;
 MySQL_Connection conn((Client *)&client);
 
 char INSERT_SQL[] = "INSERT INTO officeto_plants.TBL_READINGS(ID_PLANT, AIR_HUMIDITY, AIR_TEMPERATURE, SOIL_MOISTURE_1) VALUES (1, NULL, NULL, %d)";
-//char INSERT_SQL[] = "INSERT INTO officeto_plants.TBL_READINGS(ID_PLANT, AIR_HUMIDITY, AIR_TEMPERATURE, SOIL_MOISTURE_1, SOIL_MOISTURE_2) VALUES (1, NULL, NULL, %d, NULL)";
+//char INSERT_SQL[] = "INSERT INTO officeto_plants.TBL_READINGS(ID_PLANT, AIR_HUMIDITY, AIR_TEMPERATURE, SOIL_MOISTURE_1, SOIL_MOISTURE_2) VALUES (1, NULL, NULL, %d, %d)";
 char query[128];
 
 IPAddress server_addr(x, x ,x, x);          // MySQL server IP
@@ -96,6 +96,7 @@ void loop() {
   delay(10000); //10 sec
 
   sprintf(query, INSERT_SQL, soil_hum);
+  //sprintf(query, INSERT_SQL, soil_hum, t);
 
   Serial.println("Recording data.");
   Serial.println(query);
